@@ -1,12 +1,11 @@
 
-import './App.css'
-import Example from './context/Example'
-
+import './App.css';
+import Room from './page/Room';
 function App() {
   
   return (
     <>
-     <Example/>
+   <Room/>
     </>
   )
 }
