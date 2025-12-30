@@ -3,11 +3,13 @@ import { Box, IconButton, Typography } from "@mui/material";
 import LeftBar from "../component/LeftBar";
 import FileUploader from "../component/FileUploader";
 import ShowInfoPanel from "../component/ShowInfoPanel";
+import Spinner from "../component/Spinner";
 
 const Room = () => {
   const [showFileUploader, setShowFileUploader] = useState<boolean>(false);
   const [textReadFromFile, setTextReadFromFile] = useState<string>("");
   const [showInfoPanel, setShowInfoPanel] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false); // spinner state
 
   const handleSave = () => {
     console.log("Saving whiteboard...");
@@ -16,6 +18,7 @@ const Room = () => {
 
   const handleImport = () => {
     setShowFileUploader(true);
+    setLoading(true); 
   };
 
   return (
@@ -28,7 +31,6 @@ const Room = () => {
         overflow: "hidden",
       }}
     >
-      {/* HEADER (temporary) */}
       <Box
         sx={{
           position: "absolute",
@@ -45,25 +47,51 @@ const Room = () => {
           onClick={() => setShowInfoPanel(true)}
           sx={{ color: "#9CA3AF" }}
         >
-        
+          {/* icon goes here */}
         </IconButton>
       </Box>
 
       {/* LEFT BAR */}
-      <LeftBar
-        save={handleSave}
-        importFile={handleImport}
-        disabled={false}
-      />
+      <LeftBar save={handleSave} importFile={handleImport} disabled={false} />
+
+      {/* Spinner overlay */}
+      {loading && (
+        <Box
+          sx={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0,0,0,0.4)",
+            zIndex: 1200,
+          }}
+        >
+          <Spinner color="#36d7b7" loading={loading} connecting={true} />
+        </Box>
+      )}
       {showFileUploader && (
         <FileUploader
-          setShowFileUploader={setShowFileUploader}
-          setTextReadFromFile={setTextReadFromFile}
+          setShowFileUploader={(value) => {
+            setShowFileUploader(value);
+            if (!value) {
+             
+              setLoading(false);
+            }
+          }}
+          setTextReadFromFile={(text) => {
+            setTextReadFromFile(text);
+            setLoading(false); 
+          }}
         />
       )}
+
+      {/* Info panel */}
       {showInfoPanel && (
         <ShowInfoPanel setShowInfoPanel={setShowInfoPanel} />
       )}
+
+      {/* Imported text preview */}
       {textReadFromFile && (
         <Box
           sx={{
