@@ -2,7 +2,8 @@ import { useCallback } from "react";
 import { useState } from "react";
 import LeftBar from "./LeftBar";
 import OnlineUsers from "./OnlineUsers";
-import ColorPickerBar from "./ColorPickerBar"
+import ColorPickerBar from "./ColorPickerBar";
+import ButtonRightBar from "./BottomRightBar";
 const Canvas: React.FC = () => {
     const [strokeStyle, setStrokeStyle] = useState<string>("#23272B");
   const handleSave = useCallback((): void => {
@@ -26,6 +27,7 @@ const Canvas: React.FC = () => {
       />
 
       <OnlineUsers />
+      <ButtonRightBar scale={1} undo={() => {}} disabled={false} />
 
       <canvas id="canvas">
         Your browser does not support HTML5 canvas
