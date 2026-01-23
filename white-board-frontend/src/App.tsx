@@ -1,19 +1,21 @@
+import "./App.css";
+import Layout from "./component/Layout";
+import Canvas from "./component/Canvas";
+import { ThemeProvider } from "./context/ThemeContext";
 
-import './App.css'
-import { useState } from 'react'
-import Canvas from './component/Canvas'
-import Layout from './component/Layout'
 function App() {
-   
   return (
-    <>
-    <Layout>
-      <Canvas/>
-    </Layout>
-    
-     
-    </>
-  )
+    <ThemeProvider>
+      <div className="app-root">
+        <Layout>
+        
+          <div className="canvas-wrapper">
+            <Canvas />
+          </div>
+        </Layout>
+      </div>
+    </ThemeProvider>
+  );
 }
 
-export default App
+export default App;
