@@ -8,6 +8,7 @@ import ShowInfoPanel from "./ShowInfoPanel";
 import OnlineUsers from "./OnlineUsers";
 import BottomRightBar from "./BottomRightBar";
 import { ThemeContext } from "../context/ThemeContext";
+import MoreActionsBar from "./MoreActionsBar";
 
 // ---------- Types ----------
 type Drawing = {
@@ -76,8 +77,6 @@ const Canvas: React.FC = () => {
   useEffect(() => {
     redrawCanvas();
   }, [background, offsetX, offsetY, scale]);
-
-  // ---------- Coordinate Helpers ----------
   const toScreenX = (xTrue: number) => (xTrue + offsetX) * scale;
   const toScreenY = (yTrue: number) => (yTrue + offsetY) * scale;
   const toTrueX = (xScreen: number) => xScreen / scale - offsetX;
@@ -264,7 +263,12 @@ const importFile = () => {
             }
             {showInfoPanel && <ShowInfoPanel setShowInfoPanel={setShowInfoPanel}/>}
       <BottomRightBar scale={scale} undo={undo} disabled={disabled} />
-
+         <MoreActionsBar 
+                lineWidth={lineWidth} 
+                setLineWidth={setLineWidth} 
+                setInstrument={setInstrument} 
+                instrument={instrument}
+            />
       <canvas
         ref={canvasRef}
         id="canvas"

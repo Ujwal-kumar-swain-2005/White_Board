@@ -48,14 +48,7 @@ const BottomRightBar: React.FC<BottomRightBarProps> = ({
       >
         ↺
       </div>
-
-      {/* Scale */}
-      <div
-        className={styles.scale}
-        style={{ background: backgroundColor, color: color }}
-      >
-        Scale: {scale}
-      </div>
+     <div className={styles.scale} style={{background: `${backgroundColor}`, color: `${color}`}}>Scale: {scale.toFixed(1)}</div>
     </div>
   );
 };
